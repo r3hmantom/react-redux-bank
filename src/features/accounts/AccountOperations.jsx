@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deposit, withdraw, requestLoan, payLoan } from "./accountSlice";
+import { deposit, withdraw, requestLoan, payLoan } from "./accountSlice-1";
 import { useDispatch, useSelector } from "react-redux";
 
 function AccountOperations() {
