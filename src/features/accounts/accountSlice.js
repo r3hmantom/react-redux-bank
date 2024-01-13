@@ -1,5 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+export const depositAsync = createAsyncThunk(
+  "account/deposit",
+  async (params, { dispatch, getState }) => {
+    const { amount, currency } = params;
 
+    if (currency == "USD") return amount;
+    const res = await fetch(
+      `https://api.frankfurter.app/latest?amount=${amount}&from=${currency}&to=USD`
+    );
+
+    const data = await res.json();
+    const convertedAmount = data.rates.USD;
+
+    return convertedAmount;
+  }
+);
 const initialState = {
   balance: 0,
   loan: 0,
@@ -13,6 +28,7 @@ const accountSlice = createSlice({
   reducers: {
     deposit(state, action) {
       state.balance += action.payload;
+      state.isLoading = false;
     },
 
     withdraw(state, action) {
@@ -38,6 +54,25 @@ const accountSlice = createSlice({
       state.loan = 0;
       state.loanPurpose = "";
     },
+    convertCurrency(state) {
+      state.isLoading = true;
+    },
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(depositAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(depositAsync.fulfilled, (state, action) => {
+        state.balance += action.payload;
+        state.isLoading = false;
+        console.log("fulfilled");
+      })
+      .addCase(depositAsync.rejected, (state) => {
+        state.isLoading = false;
+        console.log("rejected");
+      });
   },
 });
 
