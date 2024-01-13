@@ -18,6 +18,9 @@ Welcome to the React-Redux Bank project! This application was developed with the
 
 The React-Redux Bank is a simple banking application that showcases the integration of Redux and Redux Toolkit into a React application. It provides basic banking functionalities such as creating a new customer, managing customer accounts, and performing account operations. Additionally, the application utilizes an API for currency conversion to USD.
 
+## Live Site
+Access the live site: [React-Redux Bank](https://r3-react-redux-bank.netlify.app/)
+
 ## Getting Started
 
 To run the project locally using Yarn, follow these steps:
@@ -26,7 +29,7 @@ To run the project locally using Yarn, follow these steps:
 
    ```bash
    git clone https://github.com/r3hmantom/react-redux-bank
-   
+
    cd react-redux-bank
    ```
 
